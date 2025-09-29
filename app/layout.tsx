@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import { Stack } from "@mui/material";
+import { Box } from "@mui/material";
 
 import StoreProvider from "./StoreProvider";
 import ThemeProvider from "./ThemeProvider";
+import Image from "next/image";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,12 +25,22 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <StoreProvider>
           <ThemeProvider>
-            <Stack
+            <Box
               height="100vh"
               margin="0 auto"
+              position="relative"
             >
+              <Box position="absolute" top={64} textAlign="center" width="100%">
+                <Image
+                  src="/dingtalk.svg"
+                  alt="logo"
+                  width={48}
+                  height={48}
+                />
+              </Box>
+
               {children}
-            </Stack>
+            </Box>
           </ThemeProvider>
         </StoreProvider>
       </body>

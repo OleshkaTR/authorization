@@ -1,7 +1,7 @@
 'use client';
 
-import { Stack, Typography } from "@mui/material";
-import { CommonButton } from "./ui/common-button";
+import { Button, Stack, Typography } from "@mui/material";
+
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -21,6 +21,7 @@ export default function Home() {
       maxWidth={660}
       margin="0 auto"
       textAlign="center"
+      position="relative"
     >
       <Typography
         fontSize={38}
@@ -43,13 +44,13 @@ export default function Home() {
         gap={2}
         alignItems="center"
       >
-        <CommonButton variant="contained" onClick={handleClick}>
+        <Button variant="contained" onClick={handleClick}>
           <Typography textTransform="none">I`m over 18 years old</Typography>
-        </CommonButton>
+        </Button>
 
-        <CommonButton variant="outlined" color="inherit" sx={{ borderColor: '#D9D9D9' }}>
+        <Button variant="outlined" color="inherit" sx={{ borderColor: '#D9D9D9' }}>
           <Typography textTransform="none">Leave the service</Typography>
-        </CommonButton>
+        </Button>
       </Stack>
     </Stack>
   );

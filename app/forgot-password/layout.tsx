@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Sign Up"
+  title: "Forgot Password"
 };
 
 export default function Layout({
@@ -10,6 +10,8 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <>{children}</>
+    <>
+      {children}
+    </>
   )
 }

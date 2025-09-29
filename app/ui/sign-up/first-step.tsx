@@ -3,8 +3,9 @@
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from "react";
 
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, Button } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
@@ -12,15 +13,11 @@ import { SignUpActions, SignUpSelectors } from "@/app/store/sign-up/slice";
 
 import { EmailValidation, PhoneNumberValidation } from "../../utils/validations";
 
-import { CommonButton } from "../common-button";
 import { TextInput } from "../text-input";
 import { PasswordInput } from "../password-input";
 import CheckboxInput from "../checkbox-Input";
 import { Form } from "../form";
-import { StepChangeAction } from "@/app/sign-up/page";
-
-import Image from "next/image";
-import { useEffect } from "react";
+import { StepChangeAction } from "@/app/utils/useStep";
 
 type DefaultValues = {
   fullName: string;
@@ -52,7 +49,6 @@ export default function FirtsStep({ onStepChange }: Props) {
 
   const {
     control,
-    setValue,
     reset,
     handleSubmit,
     formState: { isDirty }
@@ -84,74 +80,61 @@ export default function FirtsStep({ onStepChange }: Props) {
   }, [userInfo.fullName, userInfo.email, userInfo.phone, userInfo.password, reset]);
 
   return (
-    <Stack
-      alignItems="center"
-      gap="174px"
-      paddingTop={8}
-    >
-      <Image
-        src="/dingtalk.svg"
-        alt="logo"
-        width={48}
-        height={48}
-      />
+    <Form onSubmit={handleSubmit(submit)}>
+      <Typography variant="h5" fontWeight={600}>Registration</Typography>
 
-      <Form onSubmit={handleSubmit(submit)}>
-        <Typography variant="h5" fontWeight={600}>Registration</Typography>
-
-        <Stack
-          gap={2}
-          width="100%"
-        >
-          <Stack gap={2}>
-            <TextInput
-              control={control}
-              name="fullName"
-              label="Full Name"
-              placeholder="Full Name"
-            />
-            
-            <TextInput
-              control={control}
-              name="email"
-              label="Email"
-              placeholder="Email"
-            />
-            
-            <TextInput
-              control={control}
-              name="phone"
-              label="Phone"
-              placeholder="Phone"
-            />
-            
-            <PasswordInput
-              control={control}
-              name="password"
-              label="Password"
-              placeholder="Password"
-            />
-          </Stack>
-
-          <CheckboxInput
-            name="confirm"
+      <Stack
+        gap={2}
+        width="100%"
+      >
+        <Stack gap={2}>
+          <TextInput
             control={control}
-            label={
-              <Typography variant="body1" fontSize={14} marginTop={1}>By continuing, you agree to our{' '}
-                <Typography component="span" variant="body1" sx={{ textDecoration: 'underline', fontSize: 'inherit' }}>Terms of Use</Typography>
-                {' '}and{' '}
-                <Typography component="span" variant="body1" sx={{ textDecoration: 'underline', fontSize: 'inherit' }}>Privacy Policy</Typography>
-              </Typography>
-            }
+            name="fullName"
+            label="Full Name"
+            placeholder="Full Name"
+          />
+          
+          <TextInput
+            control={control}
+            name="email"
+            label="Email"
+            placeholder="Email"
+          />
+          
+          <TextInput
+            control={control}
+            name="phone"
+            label="Phone"
+            placeholder="Phone"
+          />
+          
+          <PasswordInput
+            control={control}
+            name="password"
+            label="Password"
+            placeholder="Password"
           />
         </Stack>
 
-        <CommonButton type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>
-          <Typography variant="body1" textTransform="none">Continue</Typography>
+        <CheckboxInput
+          name="confirm"
+          control={control}
+          label={
+            <Typography variant="body1" fontSize={14} marginTop={1}>By continuing, you agree to our{' '}
+              <Typography component="span" variant="body1" sx={{ textDecoration: 'underline', fontSize: 'inherit' }}>Terms of Use</Typography>
+              {' '}and{' '}
+              <Typography component="span" variant="body1" sx={{ textDecoration: 'underline', fontSize: 'inherit' }}>Privacy Policy</Typography>
+            </Typography>
+          }
+        />
+      </Stack>
 
-          <ArrowForwardIcon sx={{ color: !isDirty ? '' : '#FFFFFF', fontSize: '18px' }} />
-        </CommonButton>
-      </Form>
-    </Stack>
+      <Button type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>
+        <Typography variant="body1" textTransform="none">Continue</Typography>
+
+        <ArrowForwardIcon sx={{ color: !isDirty ? '' : '#FFFFFF', fontSize: '18px' }} />
+      </Button>
+    </Form>
   );
 }

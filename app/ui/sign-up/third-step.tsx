@@ -1,22 +1,20 @@
 'use client';
 
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import {  Stack, Typography } from "@mui/material";
+import {  Button, Stack, Typography } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { SignUpActions, SignUpSelectors } from "@/app/store/sign-up/slice";
 
-import { CommonButton } from "../common-button";
 import { TextInput } from "../text-input";
 import { Form } from "../form";
-import { StepChangeAction } from "@/app/sign-up/page";
+import { StepChangeAction } from "@/app/utils/useStep";
 import CustomDatePicker from "../date-picker";
-import StepHeader from "./step-header";
-import { useEffect } from "react";
 
 type DefaultValues = {
   dateOfBirth: string;
@@ -63,52 +61,42 @@ export default function ThirdStep({ onStepChange }: Props) {
   };
 
   return (
-    <Stack
-      gap="156px"
-      paddingTop={8}
-    >
-      <StepHeader
-        percentage={66.66}
-        onStepChange={onStepChange}
-      />
+    <Form onSubmit={handleSubmit(submit)}>
+      <Typography variant="h5" fontWeight={600}>Tell us about yourself</Typography>
 
-      <Form onSubmit={handleSubmit(submit)}>
-        <Typography variant="h5" fontWeight={600}>Tell us about yourself</Typography>
-
-        <Stack
-          gap={2}
-          width="100%"
-        >
-          <Stack gap={0.5}>
-            <Typography fontSize={14} fontWeight={600}>Date of birth</Typography>
-          
-            <CustomDatePicker
-              control={control}
-              name="dateOfBirth"
-            />
-          </Stack>
-          
-          <Stack gap={0.5}>
-            <Typography fontSize={14} fontWeight={600}>Biography</Typography>
-
-            <TextInput
-              control={control}
-              name="biography"
-              label=""
-              placeholder="Enter"
-              multiline
-              maxRows={8}
-              minRows={16}
-            />
-          </Stack>
+      <Stack
+        gap={2}
+        width="100%"
+      >
+        <Stack gap={0.5}>
+          <Typography fontSize={14} fontWeight={600}>Date of birth</Typography>
+        
+          <CustomDatePicker
+            control={control}
+            name="dateOfBirth"
+          />
         </Stack>
+        
+        <Stack gap={0.5}>
+          <Typography fontSize={14} fontWeight={600}>Biography</Typography>
 
-        <CommonButton type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>
-          <Typography variant="body1" textTransform="none">Continue</Typography>
+          <TextInput
+            control={control}
+            name="biography"
+            label=""
+            placeholder="Enter"
+            multiline
+            maxRows={8}
+            minRows={16}
+          />
+        </Stack>
+      </Stack>
 
-          <ArrowForwardIcon sx={{ color: !isDirty ? '' : '#FFFFFF', fontSize: '18px' }} />
-        </CommonButton>
-      </Form>
-    </Stack>
+      <Button type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>
+        <Typography variant="body1" textTransform="none">Continue</Typography>
+
+        <ArrowForwardIcon sx={{ color: !isDirty ? '' : '#FFFFFF', fontSize: '18px' }} />
+      </Button>
+    </Form>
   );
 }

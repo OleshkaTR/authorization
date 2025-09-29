@@ -1,9 +1,110 @@
-import React from 'react'
+'use client';
 
-const Login = () => {
+import { Button, Stack, styled, Typography } from "@mui/material";
+import { TextInput } from "../ui/text-input";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { Form } from "../ui/form";
+import Link from "next/link";
+import { PasswordInput } from "../ui/password-input";
+import { useState } from "react";
+import { useAppDispatch } from "../store/hooks";
+import { AuthSliceActions } from "../store/auth/slice";
+
+const StyledLink = styled(Link)({
+  color: "#000000",
+  textDecoration: 'none',
+  fontSize: '14px'
+});
+
+type DefaultValues = {
+  emailOrPhone: string;
+  password: string;
+};
+
+const schema: yup.ObjectSchema<DefaultValues> = yup.object().shape({
+  emailOrPhone: yup.string().trim().required('Field is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(12, 'Password must be at least 12 characters')
+    .max(40, 'Password maximum 40 characters')
+});
+
+export default function Login() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [error, setError] = useState<string | null>(null);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty }
+  } = useForm<DefaultValues>({
+    defaultValues: {
+      emailOrPhone: '',
+      password: ''
+    },
+    resolver: yupResolver(schema)
+  });
+
+  const submit = (payload: DefaultValues) => {
+    const userInfo = localStorage.getItem('user');
+    const parsedUserInfo = userInfo ? JSON.parse(userInfo) : null;
+
+    if (!parsedUserInfo) {
+      return setError('User does not exist!')
+    }
+
+    if (parsedUserInfo && (parsedUserInfo.email === payload.emailOrPhone || parsedUserInfo.phone === payload.emailOrPhone) && parsedUserInfo.password === payload.password) {
+      dispatch(AuthSliceActions.login());
+      router.push('/dashboard');
+    } else {
+      setError('Invalid credentials');
+    }
+  };
+
   return (
-    <div>Logine</div>
-  )
-}
+    <Form onSubmit={handleSubmit(submit)}>
+      <Typography variant="h5" fontWeight={600}>Welcome back!</Typography>
 
-export default Login
+      <Stack
+        gap={2}
+        width="100%"
+      >
+        <TextInput
+          control={control}
+          name="emailOrPhone"
+          label="Email/Phone"
+          placeholder="Email/Phone"
+        />
+        
+        <PasswordInput
+          control={control}
+          name="password"
+          label="Password"
+          placeholder="Password"
+        />
+
+        {!!error && (
+          <Typography color="error" variant="body1">{error}</Typography> 
+        )}
+
+        <StyledLink
+          href="/forgot-password"
+        >
+          Forgot Password?
+        </StyledLink>
+      </Stack>
+
+      <Button type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>
+        <Typography variant="body1" textTransform="none">Log In</Typography>
+
+        <ArrowForwardIcon sx={{ color: !isDirty ? '' : '#FFFFFF', fontSize: '18px' }} />
+      </Button>
+    </Form>
+  )
+};
