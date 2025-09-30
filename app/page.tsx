@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <Stack
-      width="100%"
+      width={isMobile ? 'auto' : '100%'}
       height="100%"
       justifyContent="center"
       alignItems="center"
@@ -24,6 +24,7 @@ export default function Home() {
       margin="0 auto"
       textAlign="center"
       position="relative"
+      padding={isMobile ? '0 16px' : 0}
     >
       <Stack
         height={isMobile ? '100%' : "auto"}

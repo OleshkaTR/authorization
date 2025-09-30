@@ -11,7 +11,6 @@ export const Form = styled('form')(({ theme }) => ({
     background: "#fff",
     height: '100%',
     justifyContent: 'space-between',
-    overflow: 'hidden',
     padding: '0 16px 64px'
   },
 

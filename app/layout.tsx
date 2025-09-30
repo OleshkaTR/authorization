@@ -33,10 +33,10 @@ export default function RootLayout({
         <StoreProvider>
           <ThemeProvider>
             <Box
-              height='100%'
+              height="100%"
               margin="0 auto"
               position="relative"
-              overflow="hidden"
+              overflow="auto"
               display="flex"
               flexDirection="column"
             >
