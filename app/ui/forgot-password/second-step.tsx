@@ -7,6 +7,8 @@ import { useEffect, useState, useRef, type KeyboardEvent, ChangeEvent } from "re
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { StepChangeAction } from "@/app/utils/useStep";
+import { useAppSelector } from "@/app/store/hooks";
+import { ForgotPasswordSelectors } from "@/app/store/forgot-password/slice";
 
 type ViaType = 'phone' | 'email';
 
@@ -17,9 +19,7 @@ type Props = {
 export default function SecondStep({ onStepChange }: Props) {
   const [type, setType] = useState<ViaType>('email');
   const [step, setStep] = useState(0);
-  const userInfo = localStorage.getItem('user');
-
-  const parsedUserInfo = userInfo ? JSON.parse(userInfo) : null;
+  const userInfo = useAppSelector(ForgotPasswordSelectors.getState);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -108,7 +108,7 @@ export default function SecondStep({ onStepChange }: Props) {
                   color="rgba(0, 0, 0, 0.65)"
                   fontWeight={600}
                 >
-                  {parsedUserInfo.email}
+                  {userInfo.email}
                 </Typography>
               </Stack>
             </Stack>
@@ -142,7 +142,7 @@ export default function SecondStep({ onStepChange }: Props) {
                   color="rgba(0, 0, 0, 0.65)"
                   fontWeight={600}
                 >
-                  {parsedUserInfo.phone}
+                  {userInfo.phone}
                 </Typography>
               </Stack>
             </Stack>

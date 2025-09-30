@@ -9,6 +9,9 @@ import { Form } from "../form";
 import { TextInput } from "../text-input";
 import { useState } from "react";
 import { StepChangeAction } from "@/app/utils/useStep";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import { UsersSelectors } from "@/app/store/users/slice";
+import { ForgotPasswordActions } from "@/app/store/forgot-password/slice";
 
 type DefaultValues = {
   email: string;
@@ -23,6 +26,8 @@ type Props = {
 }
 
 export default function FirstStep({ onStepChange }: Props) {
+  const dispatch = useAppDispatch();
+  const users = useAppSelector(UsersSelectors.getUsers);
   const [error, setError] = useState<string | null>(null);
   const {
     control,
@@ -36,16 +41,16 @@ export default function FirstStep({ onStepChange }: Props) {
   });
 
   const submit = (payload: DefaultValues) => {
-    const userInfo = localStorage.getItem('user');
-    const parsedUserInfo = userInfo ? JSON.parse(userInfo) : null;
-
-    if (parsedUserInfo.email !== payload.email) {
+    const user = users.find((user) => user.email === payload.email);
+    if (!user) {
       return setError('User with this email does not exist!');
     }
 
-    if (parsedUserInfo && parsedUserInfo.email === payload.email) {
-      onStepChange('increase');
-    }
+    dispatch(ForgotPasswordActions.setUserInfo({
+      email: user.email,
+      phone: user.phone
+    }));
+    onStepChange('increase');
   };
 
   return (

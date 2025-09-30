@@ -12,6 +12,7 @@ import { SignUpActions, SignUpSelectors } from "@/app/store/sign-up/slice";
 
 import { Form } from "../form";
 import { useRouter } from "next/navigation";
+import { UsersActions } from "@/app/store/users/slice";
 
 type DefaultValues = {
   goal: string;
@@ -44,7 +45,7 @@ export default function ForthStep() {
 
   const submit = (payload: DefaultValues) => {
     dispatch(SignUpActions.setUserInfo(payload));
-    localStorage.setItem('user', JSON.stringify({ ...userInfo, goal: payload.goal }));
+    dispatch(UsersActions.createUser({ ...userInfo, goal: payload.goal }));
     router.push('/login');
   };
 

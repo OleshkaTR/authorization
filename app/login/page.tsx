@@ -11,13 +11,15 @@ import { Form } from "../ui/form";
 import Link from "next/link";
 import { PasswordInput } from "../ui/password-input";
 import { useState } from "react";
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { AuthSliceActions } from "../store/auth/slice";
+import { UsersSelectors } from "../store/users/slice";
 
 const StyledLink = styled(Link)({
   color: "#000000",
   textDecoration: 'none',
-  fontSize: '14px'
+  fontSize: '14px',
+  width: 'fit-content'
 });
 
 type DefaultValues = {
@@ -38,6 +40,7 @@ export default function Login() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [error, setError] = useState<string | null>(null);
+  const users = useAppSelector(UsersSelectors.getUsers);
 
   const {
     control,
@@ -52,14 +55,13 @@ export default function Login() {
   });
 
   const submit = (payload: DefaultValues) => {
-    const userInfo = localStorage.getItem('user');
-    const parsedUserInfo = userInfo ? JSON.parse(userInfo) : null;
+    const user = users.find((user) => user.email === payload.emailOrPhone || user.phone === payload.emailOrPhone);
 
-    if (!parsedUserInfo) {
+    if (!user) {
       return setError('User does not exist!')
     }
 
-    if (parsedUserInfo && (parsedUserInfo.email === payload.emailOrPhone || parsedUserInfo.phone === payload.emailOrPhone) && parsedUserInfo.password === payload.password) {
+    if (user.password === payload.password) {
       dispatch(AuthSliceActions.login());
       router.push('/dashboard');
     } else {

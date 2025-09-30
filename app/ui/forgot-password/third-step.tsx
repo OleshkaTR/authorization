@@ -1,14 +1,16 @@
 'use client';
 
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Image from "next/image";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { Form } from "../form";
 import { PasswordInput } from "../password-input";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import { UsersActions, UsersSelectors } from "@/app/store/users/slice";
+import { ForgotPasswordSelectors } from "@/app/store/forgot-password/slice";
 
 type DefaultValues = {
   newPassword: string;
@@ -30,7 +32,10 @@ const schema: yup.ObjectSchema<DefaultValues> = yup.object().shape({
 });
 
 export default function ThirdStep() {
+  const dispatch = useAppDispatch();
   const router = useRouter();
+  const users = useAppSelector(UsersSelectors.getUsers);
+  const { email } = useAppSelector(ForgotPasswordSelectors.getState);
 
   const {
     control,
@@ -45,11 +50,11 @@ export default function ThirdStep() {
   });
 
   const submit = (payload: DefaultValues) => {
-    const userInfo = localStorage.getItem('user');
-    const parsedUserInfo = userInfo ? JSON.parse(userInfo) : null;
+    const user = users.find((user) => user.email === email);
 
-    if (parsedUserInfo) {
-      localStorage.setItem('user', JSON.stringify({ ...parsedUserInfo, password: payload.newPassword }));
+    if (user) {
+      const filterdUsers = users.filter((user) => user.email !== email);
+      dispatch(UsersActions.setUsers([...filterdUsers, { ...user, password: payload.newPassword }]))
       router.push('/login');
     }
   };
