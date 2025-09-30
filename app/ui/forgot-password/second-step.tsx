@@ -1,12 +1,17 @@
 'use client';
 
-import { Box, Stack, Typography, TextField, Button } from "@mui/material";
-import Image from "next/image";
-import { Form } from "../form";
 import { useEffect, useState, useRef, type KeyboardEvent, ChangeEvent } from "react";
+import Image from "next/image";
+
+import { Box, Stack, Typography, TextField, Button } from "@mui/material";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+import { Form } from "../form";
+import UserInfoCard from "./user-info-card";
+
 import { StepChangeAction } from "@/app/utils/useStep";
+
 import { useAppSelector } from "@/app/store/hooks";
 import { ForgotPasswordSelectors } from "@/app/store/forgot-password/slice";
 
@@ -80,72 +85,19 @@ export default function SecondStep({ onStepChange }: Props) {
           </Stack>
 
           <Stack gap={2} width="100%">
-            <Stack
-              direction='row'
-              gap={3}
-              alignItems="center"
-              padding={3}
-              bgcolor={type === 'email' ? "#1677FF" : "#FFFFFF"}
-              boxShadow="0px 2px 12px 1px #91909029"
+            <UserInfoCard
+              icon={<MailOutlineIcon sx={{ fontSize: '36px' }} color="action" />}
+              info={userInfo.email}
+              isSelected={type === 'email'}
               onClick={() => chooseType('email')}
-              sx={{
-                cursor: 'pointer'
-              }}
-            >
-              <MailOutlineIcon sx={{ fontSize: '36px' }} color="action" />
+            />
 
-              <Stack gap={0.5}>
-                <Typography
-                  variant="body2"
-                  color="rgba(0, 0, 0, 0.65)"
-                >
-                  via mail:
-                </Typography>
-
-                
-                <Typography
-                  variant="body2"
-                  color="rgba(0, 0, 0, 0.65)"
-                  fontWeight={600}
-                >
-                  {userInfo.email}
-                </Typography>
-              </Stack>
-            </Stack>
-            
-            <Stack
-              direction='row'
-              gap={3}
-              alignItems="center"
-              padding={3}
-              bgcolor={type === 'phone' ? "#1677FF" : "#FFFFFF"}
-              boxShadow="0px 2px 12px 1px #91909029"
+            <UserInfoCard
+              icon={<Image width={36} height={36} alt="phone" src="/mobile.svg" />}
+              info={userInfo.phone}
+              isSelected={type === 'phone'}
               onClick={() => chooseType('phone')}
-              sx={{
-                cursor: 'pointer'
-              }}
-
-            >
-              <Image width={36} height={36} alt="phone" src="/mobile.svg" />
-
-              <Stack gap={0.5}>
-                <Typography
-                  variant="body2"
-                  color="rgba(0, 0, 0, 0.65)"
-                >
-                  via sms:
-                </Typography>
-
-                
-                <Typography
-                  variant="body2"
-                  color="rgba(0, 0, 0, 0.65)"
-                  fontWeight={600}
-                >
-                  {userInfo.phone}
-                </Typography>
-              </Stack>
-            </Stack>
+            />
           </Stack>
 
           <Stack gap={2} width="100%">

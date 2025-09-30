@@ -1,16 +1,19 @@
 'use client';
 
-import { Button, Stack, styled, Typography } from "@mui/material";
-import { TextInput } from "../ui/text-input";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { Form } from "../ui/form";
 import Link from "next/link";
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { Button, Stack, styled, Typography } from "@mui/material";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+import { TextInput } from "../ui/text-input";
+import { Form } from "../ui/form";
 import { PasswordInput } from "../ui/password-input";
-import { useState } from "react";
+
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { AuthSliceActions } from "../store/auth/slice";
 import { UsersSelectors } from "../store/users/slice";

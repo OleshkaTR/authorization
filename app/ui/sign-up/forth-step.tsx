@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,10 +10,9 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { SignUpActions, SignUpSelectors } from "@/app/store/sign-up/slice";
+import { UsersActions } from "@/app/store/users/slice";
 
 import { Form } from "../form";
-import { useRouter } from "next/navigation";
-import { UsersActions } from "@/app/store/users/slice";
 
 type DefaultValues = {
   goal: string;

@@ -1,5 +1,6 @@
-import { Stack } from '@mui/material';
 import { Metadata } from 'next';
+
+import { Stack } from '@mui/material';
 
 export const metadata: Metadata = {
   title: "Login"

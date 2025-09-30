@@ -12,12 +12,12 @@ import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { SignUpActions, SignUpSelectors } from "@/app/store/sign-up/slice";
 
 import { EmailValidation, PhoneNumberValidation } from "../../utils/validations";
+import { StepChangeAction } from "@/app/utils/useStep";
 
 import { TextInput } from "../text-input";
 import { PasswordInput } from "../password-input";
 import CheckboxInput from "../checkbox-Input";
 import { Form } from "../form";
-import { StepChangeAction } from "@/app/utils/useStep";
 
 type DefaultValues = {
   fullName: string;

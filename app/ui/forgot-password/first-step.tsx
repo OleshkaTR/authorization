@@ -4,11 +4,14 @@ import { Button, Stack, Typography } from "@mui/material";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+
 import { EmailValidation } from "@/app/utils/validations";
+import { StepChangeAction } from "@/app/utils/useStep";
+
 import { Form } from "../form";
 import { TextInput } from "../text-input";
-import { useState } from "react";
-import { StepChangeAction } from "@/app/utils/useStep";
+
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { UsersSelectors } from "@/app/store/users/slice";
 import { ForgotPasswordActions } from "@/app/store/forgot-password/slice";
@@ -23,7 +26,7 @@ const schema: yup.ObjectSchema<DefaultValues> = yup.object().shape({
 
 type Props = {
   onStepChange: (action: StepChangeAction) => void;
-}
+};
 
 export default function FirstStep({ onStepChange }: Props) {
   const dispatch = useAppDispatch();

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Inter } from "next/font/google";
 
 import { Box } from "@mui/material";
 
 import StoreProvider from "./StoreProvider";
 import ThemeProvider from "./ThemeProvider";
-import Image from "next/image";
 
 const inter = Inter({
   subsets: ["latin"],

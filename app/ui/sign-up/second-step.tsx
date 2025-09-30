@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,11 +11,11 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { SignUpActions, SignUpSelectors } from "@/app/store/sign-up/slice";
 
+import { StepChangeAction } from "@/app/utils/useStep";
+
 import { TextInput } from "../text-input";
 import { Form } from "../form";
-import { StepChangeAction } from "@/app/utils/useStep";
 import CountrySelect from "../country-select";
-import { useEffect } from "react";
 
 type DefaultValues = {
   country: string;
