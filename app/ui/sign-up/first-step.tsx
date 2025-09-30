@@ -81,53 +81,55 @@ export default function FirtsStep({ onStepChange }: Props) {
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      <Typography variant="h5" fontWeight={600}>Registration</Typography>
+      <Stack height='100%' justifyContent='center' gap={4}>
+        <Typography variant="h5" fontWeight={600} textAlign="center">Registration</Typography>
 
-      <Stack
-        gap={2}
-        width="100%"
-      >
-        <Stack gap={2}>
-          <TextInput
+        <Stack
+          gap={2}
+          width="100%"
+        >
+          <Stack gap={2}>
+            <TextInput
+              control={control}
+              name="fullName"
+              label="Full Name"
+              placeholder="Full Name"
+            />
+            
+            <TextInput
+              control={control}
+              name="email"
+              label="Email"
+              placeholder="Email"
+            />
+            
+            <TextInput
+              control={control}
+              name="phone"
+              label="Phone"
+              placeholder="Phone"
+            />
+            
+            <PasswordInput
+              control={control}
+              name="password"
+              label="Password"
+              placeholder="Password"
+            />
+          </Stack>
+
+          <CheckboxInput
+            name="confirm"
             control={control}
-            name="fullName"
-            label="Full Name"
-            placeholder="Full Name"
-          />
-          
-          <TextInput
-            control={control}
-            name="email"
-            label="Email"
-            placeholder="Email"
-          />
-          
-          <TextInput
-            control={control}
-            name="phone"
-            label="Phone"
-            placeholder="Phone"
-          />
-          
-          <PasswordInput
-            control={control}
-            name="password"
-            label="Password"
-            placeholder="Password"
+            label={
+              <Typography variant="body1" fontSize={14} marginTop={1}>By continuing, you agree to our{' '}
+                <Typography component="span" variant="body1" sx={{ textDecoration: 'underline', fontSize: 'inherit' }}>Terms of Use</Typography>
+                {' '}and{' '}
+                <Typography component="span" variant="body1" sx={{ textDecoration: 'underline', fontSize: 'inherit' }}>Privacy Policy</Typography>
+              </Typography>
+            }
           />
         </Stack>
-
-        <CheckboxInput
-          name="confirm"
-          control={control}
-          label={
-            <Typography variant="body1" fontSize={14} marginTop={1}>By continuing, you agree to our{' '}
-              <Typography component="span" variant="body1" sx={{ textDecoration: 'underline', fontSize: 'inherit' }}>Terms of Use</Typography>
-              {' '}and{' '}
-              <Typography component="span" variant="body1" sx={{ textDecoration: 'underline', fontSize: 'inherit' }}>Privacy Policy</Typography>
-            </Typography>
-          }
-        />
       </Stack>
 
       <Button type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>

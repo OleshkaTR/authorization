@@ -1,3 +1,4 @@
+import { useMobileMediaQuery } from "@/app/utils/useMobileMediaQuery";
 import { Stack, Typography } from "@mui/material";
 import { ReactElement } from "react";
 
@@ -9,13 +10,15 @@ type Props = {
 };
 
 export default function UserInfoCard({ isSelected, icon, info, onClick }: Props) {
+  const isMobile = useMobileMediaQuery();
+
   return (
     <Stack
       direction='row'
       gap={3}
       alignItems="center"
       padding={3}
-      bgcolor={isSelected ? "#1677FF" : "#FFFFFF"}
+      bgcolor={isSelected ? "#1677FF" : isMobile ? '#F9F9F9' : "#FFFFFF"}
       boxShadow="0px 2px 12px 1px #91909029"
       onClick={onClick}
       sx={{

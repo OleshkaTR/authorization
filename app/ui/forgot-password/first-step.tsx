@@ -58,29 +58,31 @@ export default function FirstStep({ onStepChange }: Props) {
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      <Stack gap={2} alignItems="center">
-        <Typography variant="h5" fontWeight={600}>Forgot password?</Typography>
+      <Stack height='100%' justifyContent='center' gap={4}>
+        <Stack gap={2} alignItems="center">
+          <Typography variant="h5" fontWeight={600}>Forgot password?</Typography>
 
-        <Typography
-          variant="body2" 
-          color="rgba(0, 0, 0, 0.65)"
-          textAlign="center"
-        >
-          Provide your account`s email for which you want to restore password!
-        </Typography>
-      </Stack>
+          <Typography
+            variant="body2" 
+            color="rgba(0, 0, 0, 0.65)"
+            textAlign="center"
+          >
+            Provide your account`s email for which you want to restore password!
+          </Typography>
+        </Stack>
 
-      <Stack gap={1} width="100%">
-        <TextInput
-          control={control}
-          name="email"
-          label="Email"
-          placeholder="Email"
-        />
+        <Stack gap={1} width="100%">
+          <TextInput
+            control={control}
+            name="email"
+            label="Email"
+            placeholder="Email"
+          />
 
-        {!!error && (
-          <Typography color="error" variant="body1" width="100%">{error}</Typography> 
-        )}
+          {!!error && (
+            <Typography color="error" variant="body1" width="100%">{error}</Typography> 
+          )}
+        </Stack>
       </Stack>
 
       <Button type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>

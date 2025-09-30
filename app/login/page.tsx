@@ -74,35 +74,37 @@ export default function Login() {
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      <Typography variant="h5" fontWeight={600}>Welcome back!</Typography>
+      <Stack height='100%' justifyContent='center' width="100%" gap={4}>
+        <Typography variant="h5" fontWeight={600} textAlign="center">Welcome back!</Typography>
 
-      <Stack
-        gap={2}
-        width="100%"
-      >
-        <TextInput
-          control={control}
-          name="emailOrPhone"
-          label="Email/Phone"
-          placeholder="Email/Phone"
-        />
-        
-        <PasswordInput
-          control={control}
-          name="password"
-          label="Password"
-          placeholder="Password"
-        />
-
-        {!!error && (
-          <Typography color="error" variant="body1">{error}</Typography> 
-        )}
-
-        <StyledLink
-          href="/forgot-password"
+        <Stack
+          gap={2}
+          width="100%"
         >
-          Forgot Password?
-        </StyledLink>
+          <TextInput
+            control={control}
+            name="emailOrPhone"
+            label="Email/Phone"
+            placeholder="Email/Phone"
+          />
+          
+          <PasswordInput
+            control={control}
+            name="password"
+            label="Password"
+            placeholder="Password"
+          />
+
+          {!!error && (
+            <Typography color="error" variant="body1">{error}</Typography> 
+          )}
+
+          <StyledLink
+            href="/forgot-password"
+          >
+            Forgot Password?
+          </StyledLink>
+        </Stack>
       </Stack>
 
       <Button type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>

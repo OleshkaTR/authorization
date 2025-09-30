@@ -13,9 +13,8 @@ export default function Layout({
 }>) {
   return (
     <Stack
-      minWidth="496px"
       maxWidth="496px"
-      width="496px"
+      width="100%"
       margin="0 auto"
       height="100%"
       justifyContent="center"

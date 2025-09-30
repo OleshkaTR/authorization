@@ -62,26 +62,28 @@ export default function SecondStep({ onStepChange }: Props) {
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      <Typography variant="h5" fontWeight={600}>Where do you live?</Typography>
+      <Stack height='100%' justifyContent='center' width="100%" gap={4}>
+        <Typography variant="h5" fontWeight={600} textAlign="center">Where do you live?</Typography>
 
-      <Stack
-        gap={2}
-        width="100%"
-      >
-        <CountrySelect
-          control={control}
-          name="country"
-        />
-        
-        <Stack gap={0.5}>
-          <Typography fontSize={14} fontWeight={600}>City</Typography>
-
-          <TextInput
+        <Stack
+          gap={2}
+          width="100%"
+        >
+          <CountrySelect
             control={control}
-            name="city"
-            label=""
-            placeholder="City"
+            name="country"
           />
+          
+          <Stack gap={0.5}>
+            <Typography fontSize={14} fontWeight={600}>City</Typography>
+
+            <TextInput
+              control={control}
+              name="city"
+              label=""
+              placeholder="City"
+            />
+          </Stack>
         </Stack>
       </Stack>
 

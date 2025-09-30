@@ -64,25 +64,27 @@ export default function ThirdStep() {
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      <Typography variant="h5" fontWeight={600}>Enter new password</Typography>
+      <Stack height='100%' justifyContent='center' gap={4} width="100%">
+        <Typography variant="h5" fontWeight={600} textAlign="center">Enter new password</Typography>
 
-      <Stack
-        gap={2}
-        width="100%"
-      >
-        <PasswordInput
-          control={control}
-          name="newPassword"
-          label="New Password"
-          placeholder="New Password"
-        />
-        
-        <PasswordInput
-          control={control}
-          name="confirmPassword"
-          label="Confirm Password"
-          placeholder="Confirm Password"
-        />
+        <Stack
+          gap={2}
+          width="100%"
+        >
+          <PasswordInput
+            control={control}
+            name="newPassword"
+            label="New Password"
+            placeholder="New Password"
+          />
+          
+          <PasswordInput
+            control={control}
+            name="confirmPassword"
+            label="Confirm Password"
+            placeholder="Confirm Password"
+          />
+        </Stack>
       </Stack>
 
       <Button type="submit" fullWidth variant="contained" disabled={!isDirty} sx={{ gap: '8px' }}>

@@ -1,7 +1,10 @@
 import { Box, Button, LinearProgress, Stack, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import { StepChangeAction } from "@/app/utils/useStep";
+import { useMobileMediaQuery } from "@/app/utils/useMobileMediaQuery";
+
 
 const percentageByStep = [0, 33.33, 66.66, 100];
 
@@ -11,6 +14,8 @@ type Props = {
 };
 
 export default function StepHeader({ step, onStepChange }: Props) {
+  const isMobile = useMobileMediaQuery();
+
   const goToPreviousStep = () => {
     onStepChange('decrease');
   };
@@ -18,9 +23,11 @@ export default function StepHeader({ step, onStepChange }: Props) {
   return (
     <Stack
       gap={2}
-      width="100%"          
+      width={isMobile ? 'auto' : '100%'}
       alignItems="start"
-      position="absolute"
+      position={isMobile ? 'static' : "absolute"}
+      marginY={isMobile ? '32px' : 0}
+      paddingX={isMobile ? '16px' : 0}
       top={160}
     >
       <Button
@@ -28,13 +35,14 @@ export default function StepHeader({ step, onStepChange }: Props) {
         sx={{
           gap: '8px',
           color: '#000000',
-          width: 'auto'
+          width: 'auto',
+          minWidth: 'fit-content'
         }}
         onClick={goToPreviousStep}
       >
-        <ArrowBackIcon sx={{ fontSize:"18px" }} /> 
+        {isMobile ? <ArrowBackIosNewIcon sx={{ fontSize:"24px" }} /> : <ArrowBackIcon sx={{ fontSize:"18px" }} /> }
 
-        <Typography variant="body1">Back</Typography>
+        {!isMobile && <Typography variant="body1">Back</Typography>}
       </Button>
 
       <Box sx={{ width: '100%' }}>

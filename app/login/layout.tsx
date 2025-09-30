@@ -15,12 +15,11 @@ export default function Layout({
     <Stack
       height="100%"
       margin="0 auto"
-      minWidth="496px"
       maxWidth="496px"
-      width="496px"
+      width="100%"
       justifyContent="center"
     >
       {children}
     </Stack>
-  )
+  );
 }

@@ -12,6 +12,8 @@ import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { SignUpActions, SignUpSelectors } from "@/app/store/sign-up/slice";
 import { UsersActions } from "@/app/store/users/slice";
 
+import { useMobileMediaQuery } from "@/app/utils/useMobileMediaQuery";
+
 import { Form } from "../form";
 
 type DefaultValues = {
@@ -25,6 +27,7 @@ const schema: yup.ObjectSchema<DefaultValues> = yup.object().shape({
 const goals = ["Friends first", "Casual dating", "Serious relationships", "Activity partner"];
 
 export default function ForthStep() {
+  const isMobile = useMobileMediaQuery();
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector(SignUpSelectors.getUserInfo);
   const router = useRouter();
@@ -73,7 +76,7 @@ export default function ForthStep() {
               borderRadius: '8px',
               fontSize: '16px',
               height: '46px',
-              background: selectedGoal === goal ? '#1677FF' : '#FFFFFF',
+              background: selectedGoal === goal ? '#1677FF' : isMobile ? '#F9F9F9' : '#FFFFFF',
               color: selectedGoal === goal ? '#FFFFFF' : '#000000',
               '.MuiChip-label': {
                 padding: '8px 16px'

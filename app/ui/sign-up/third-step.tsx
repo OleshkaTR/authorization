@@ -63,33 +63,35 @@ export default function ThirdStep({ onStepChange }: Props) {
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      <Typography variant="h5" fontWeight={600}>Tell us about yourself</Typography>
+      <Stack height='100%' justifyContent='center' gap={4} width="100%">
+        <Typography variant="h5" fontWeight={600} textAlign="center">Tell us about yourself</Typography>
 
-      <Stack
-        gap={2}
-        width="100%"
-      >
-        <Stack gap={0.5}>
-          <Typography fontSize={14} fontWeight={600}>Date of birth</Typography>
-        
-          <CustomDatePicker
-            control={control}
-            name="dateOfBirth"
-          />
-        </Stack>
-        
-        <Stack gap={0.5}>
-          <Typography fontSize={14} fontWeight={600}>Biography</Typography>
+        <Stack
+          gap={2}
+          width="100%"
+        >
+          <Stack gap={0.5}>
+            <Typography fontSize={14} fontWeight={600}>Date of birth</Typography>
+          
+            <CustomDatePicker
+              control={control}
+              name="dateOfBirth"
+            />
+          </Stack>
+          
+          <Stack gap={0.5}>
+            <Typography fontSize={14} fontWeight={600}>Biography</Typography>
 
-          <TextInput
-            control={control}
-            name="biography"
-            label=""
-            placeholder="Enter"
-            multiline
-            maxRows={8}
-            minRows={16}
-          />
+            <TextInput
+              control={control}
+              name="biography"
+              label=""
+              placeholder="Enter"
+              multiline
+              maxRows={7}
+              minRows={7}
+            />
+          </Stack>
         </Stack>
       </Stack>
 
